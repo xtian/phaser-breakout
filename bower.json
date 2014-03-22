@@ -1,0 +1,7 @@
+{
+  "name": "phaser-breakout",
+  "version": "0.0.0",
+  "description": "Breakout clone using the Phaser engine",
+  "license": "ISC",
+  "private": true
+}
