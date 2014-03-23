@@ -1,6 +1,10 @@
 module.exports = function(broccoli) {
   var pickFiles = require('broccoli-static-compiler')
+  var sass = require('broccoli-sass')
   var traceur = require('broccoli-traceur')
+
+  var cssFiles = broccoli.makeTree('assets/css')
+  cssFiles = sass([cssFiles], './main.scss', '/dist/main.css')
 
   var jsFiles = broccoli.makeTree('assets/js')
   jsFiles = traceur(jsFiles, { blockBinding: true })
@@ -15,5 +19,5 @@ module.exports = function(broccoli) {
   , destDir: 'dist'
   })
 
-  return [jsFiles, publicFiles, vendorFiles]
+  return [cssFiles, jsFiles, publicFiles, vendorFiles]
 }
