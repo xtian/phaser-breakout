@@ -41,15 +41,5 @@ function update() {
 }
 
 function collisionHandler(ball, paddle) {
-  var diff = 0
-
-  if (ball.x < paddle.x) {
-    diff = paddle.x - ball.x
-    ball.body.velocity.x = (-10 * diff)
-  } else if (ball.x > paddle.x) {
-    diff = ball.x - paddle.x
-    ball.body.velocity.x = (10 * diff)
-  } else {
-    ball.body.velocity.x = 2 + Math.random() * 8
-  }
+  ball.body.velocity.y *= -1
 }
