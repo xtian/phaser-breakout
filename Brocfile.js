@@ -7,14 +7,14 @@ module.exports = function(broccoli) {
   cssFiles = sass([cssFiles], './main.scss', '/dist/main.css')
 
   var jsFiles = broccoli.makeTree('assets/js')
-  jsFiles = traceur(jsFiles, { blockBinding: true })
+  jsFiles = traceur(jsFiles)
   jsFiles = pickFiles(jsFiles, { srcDir: '/', destDir: 'dist' })
 
   var publicFiles = broccoli.makeTree('public')
 
   var vendorFiles = new broccoli.MergedTree(broccoli.bowerTrees())
   vendorFiles = pickFiles(vendorFiles, {
-    files: ['**/*.js',]
+    files: ['**/*.js']
   , srcDir: '/'
   , destDir: 'dist'
   })
