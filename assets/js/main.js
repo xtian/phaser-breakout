@@ -13,12 +13,13 @@ function preload() {
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE)
 
-  ball = game.add.sprite(game.world.centerX, 50, 'ball')
-  brick = game.add.sprite(game.world.centerX - 25, 20, 'brick')
-  paddle = game.add.sprite(game.world.centerX - 25, 280, 'paddle')
+  var group = game.add.group(undefined, null, undefined, true)
 
-  game.physics.enable([ball, brick, paddle], Phaser.Physics.ARCADE)
+  ball = group.create(game.world.centerX, 50, 'ball')
+  brick = group.create(game.world.centerX - 25, 20, 'brick')
+  paddle = group.create(game.world.centerX - 25, 280, 'paddle')
 
+  ball.anchor.setTo(0.5, 0.5)
   ball.body.velocity.setTo(200, 200)
   ball.body.collideWorldBounds = true
   ball.body.bounce.set(1)
