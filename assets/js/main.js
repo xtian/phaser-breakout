@@ -1,7 +1,7 @@
 var states = { preload, create, update }
 var game = new Phaser.Game(400, 300, Phaser.AUTO, 'phaser-game', states)
 
-var ball, brick, paddle
+var bricks = [], ball, paddle
 var leftKey, rightKey
 
 function preload() {
@@ -15,8 +15,7 @@ function create() {
 
   var group = game.add.group(undefined, null, undefined, true)
 
-  ball = group.create(game.world.centerX, 50, 'ball')
-  brick = group.create(game.world.centerX - 25, 20, 'brick')
+  ball = group.create(game.world.centerX, 100, 'ball')
   paddle = group.create(game.world.centerX - 25, 280, 'paddle')
 
   ball.anchor.setTo(0.5, 0.5)
@@ -24,12 +23,13 @@ function create() {
   ball.body.collideWorldBounds = true
   ball.body.bounce.set(1)
 
-  brick.anchor.setTo(0, 0.5)
-  brick.body.immovable = true
-
   paddle.anchor.setTo(0, 0.5)
   paddle.body.collideWorldBounds = true
   paddle.body.immovable = true
+
+  for (var i = 3; i--;) {
+    buildBrickRow(group, i * 25 + 20)
+  }
 
   ;[leftKey, rightKey] = ['LEFT', 'RIGHT'].map((key) => {
     return game.input.keyboard.addKey(Phaser.Keyboard[key])
@@ -43,7 +43,10 @@ function update() {
     paddle.body.x += 10
   }
 
-  game.physics.arcade.overlap(ball, brick, brickHandler, null, this)
+  for (var brick of bricks) {
+    game.physics.arcade.overlap(ball, brick, brickHandler, null, this)
+  }
+
   game.physics.arcade.overlap(ball, paddle, paddleHandler, null, this)
 }
 
@@ -53,4 +56,18 @@ function brickHandler(ball, brick) {
 
 function paddleHandler(ball, paddle) {
   ball.body.velocity.y *= -1
+}
+
+function buildBrickRow(group, y) {
+  var brickCount = 6
+  var gutter = (game.world.width - (brickCount * 50)) / 2
+
+  for (var i = brickCount; i--;) {
+    var x = gutter + (i * 50)
+    var brick = group.create(x, y, 'brick')
+
+    brick.anchor.setTo(0, 0.5)
+    brick.body.immovable = true
+    bricks.push(brick)
+  }
 }
