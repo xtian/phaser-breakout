@@ -5,7 +5,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "phaser": "^2.0.0",
+    "phaser": "photonstorm/phaser#dev",
     "traceur-runtime": "^0.0.30"
   }
 }
