@@ -6,6 +6,6 @@
   "private": true,
   "dependencies": {
     "phaser": "photonstorm/phaser#dev",
-    "traceur-runtime": "^0.0.30"
+    "traceur-runtime": "^0.0.32"
   }
 }
